@@ -34,7 +34,7 @@
       .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:0 20px 50px rgba(0,0,0,.35); backdrop-filter: blur(6px);} 
       header{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px} 
       .brand{display:flex; align-items:center; gap:14px} 
-      .logo{width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:0 0 0 6px rgba(34,211,238,.12); overflow: hidden;}
+      .logo{width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:0 0 0 6px rgba(34,211,238,.12); overflow: hidden; flex-shrink: 0;} /* 新增 flex-shrink: 0 確保 Logo 不會被擠壓 */
       .logo img {width: 100%; height: 100%; object-fit: cover;}
       
       .name{font-size:40px; font-weight:700; letter-spacing:.2px} 
@@ -61,7 +61,9 @@
       .mono{font-variant-numeric:tabular-nums} 
       .ring:focus{outline:none; box-shadow:0 0 0 6px rgba(var(--ring-color), .35)}
 
-      /* ============== 手機版響應式優化修正 ============== */
+      /* ============== 修正 Logo 跑版和 WhatsApp 對齊的 CSS 區塊 ============== */
+      
+      /* 針對中型螢幕/平板 (860px 以下) 的修正 */
       @media (max-width: 860px) {
           .grid {
               margin: 0; 
@@ -69,7 +71,13 @@
           .panel {
               padding: 18px 20px; 
           }
+          /* 讓長名稱在平板/中螢幕上不會擠爆版面 */
+          .name {
+              font-size: clamp(28px, 4vw, 36px); 
+          }
       }
+      
+      /* 針對手機螢幕 (600px 以下) 的修正 */
       @media (max-width: 600px) {
           header {
               flex-direction: column; 
@@ -77,15 +85,20 @@
               padding: 18px 16px; 
           }
           .brand {
-              flex-direction: column; 
-              align-items: flex-start;
-              gap: 8px;
-          }
-          .cta {
-              margin-top: 12px; 
+              /* 確保 Logo 和名稱在手機上保持水平排列 */
+              flex-direction: row; 
+              align-items: center;
+              gap: 12px;
+              width: 100%; 
           }
           .name {
-              font-size: 32px; 
+              font-size: 24px; /* 極小螢幕下字體進一步縮小 */
+          }
+          .cta {
+              width: 100%; 
+              display: flex; 
+              justify-content: space-between; /* 讓兩個按鈕在底部左右撐開 */
+              gap: 10px;
           }
       }
     </style>
@@ -141,13 +154,13 @@
             <h2 id="contact-title">聯絡方式 Contact</h2>
             <div class="contact-list">
               <div class="item"><strong>電話</strong><a href="tel:+88655511888">+886-5-5511888</a><span>+886-921794380 Mr.William Ho</span></div>
-              <div class="item"><strong>即時通訊</strong><span>Line / WeChat / <a href="https://wa.me/886921794380" target="_blank">WhatsApp</a></span></div>
+              <div class="item"><strong>即時通訊</strong><span>Line / WeChat / <a href="https://wa.me/886921794380" target="_blank">WhatsApp (請使用您的號碼替換)</a></span></div>
               <div class="item"><strong>Email</strong><a href="mailto:t6960638@ms45.hinet.net">t6960638@ms45.hinet.net</a></div>
               <div class="item"><strong>地址</strong><span>雲林縣斗六市竹圍路3號<br>No. 3 Chu-Wei Road Shi-Chou Li Dou-Liu City, Taiwan</span></div>
             </div>
             <div style="margin-top:14px">
               <iframe class="map" title="公司位置地圖" loading="lazy" allowfullscreen 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.779770519965!2d120.5400508750849!3d23.75402517865184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eb4a54a0194ed%3A0x6a053229b3117565!2zNjQw5雲林縣斗六市竹圍路3號!5e0!3m2!1szh-TW!2stw!4v1678235213600!5m2!1szh-TW!2stw"></iframe>
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.3807982463513!2d120.55100067530462!3d23.73809228945695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4m0!3e0!5m2!1sen!2stw"></iframe>
             </div>
           </aside>
         </div>
